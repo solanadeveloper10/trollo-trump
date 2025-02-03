@@ -3,9 +3,10 @@ import { motion, AnimatePresence } from "framer-motion";
 
 const randomRange = (min, max) => Math.random() * (max - min) + min;
 
+const imageUrls = ["/face_static.webp", "/face_dynamic.gif"]; // Two images
+
 const AnimatedBackground = () => {
   const [images, setImages] = useState([]);
-  const imageUrl = "/face_static.webp";
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -13,6 +14,7 @@ const AnimatedBackground = () => {
         ...prev,
         {
           id: Date.now(),
+          src: imageUrls[Math.floor(Math.random() * imageUrls.length)], // Randomly select image
           size: randomRange(30, 700),
           x: randomRange(0, window.innerWidth),
           y: randomRange(0, window.innerHeight),
@@ -31,10 +33,10 @@ const AnimatedBackground = () => {
   return (
     <div className="background-container">
       <AnimatePresence>
-        {images.map(({ id, size, x, y }) => (
+        {images.map(({ id, src, size, x, y }) => (
           <motion.img
             key={id}
-            src={imageUrl}
+            src={src} // Use dynamically selected image
             className="animated-image"
             initial={{ opacity: 0, scale: 0 }}
             animate={{ opacity: 1, scale: 1, x, y }}
