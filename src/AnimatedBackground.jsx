@@ -10,12 +10,15 @@ const AnimatedBackground = () => {
 
   useEffect(() => {
     const interval = setInterval(() => {
+      const isMobile = window.innerWidth < 768;
+      const size = isMobile ? randomRange(30, 300) : randomRange(30, 700); // Adjust size based on screen width
+
       setImages((prev) => [
         ...prev,
         {
           id: Date.now(),
-          src: imageUrls[Math.floor(Math.random() * imageUrls.length)], // Randomly select image
-          size: randomRange(30, 700),
+          src: imageUrls[Math.floor(Math.random() * imageUrls.length)], // Randomly select an image
+          size,
           x: randomRange(0, window.innerWidth),
           y: randomRange(0, window.innerHeight),
         },
